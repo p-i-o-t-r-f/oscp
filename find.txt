@@ -1,0 +1,59 @@
+FIND FILES:
+updatedb
+locate sbd.exe
+
+which  sbd
+
+find -> more aggressive:
+Find / -name sbd*
+Find / -name sbd* -exec file {}  \;   ->execute file
+
+
+PATTERN MATCHING:
+awk '$1 >5' myfile     -> find number 6 or greater
+awk '{print $1,$3;}' myfile          -> find first and third words in every line
+
+
+FIND TEXT IN FILE:
+Cat index.html | grep "href="
+Cat index.html | grep "href=" | cut -d"/" -f3 | more   -> to show only names 
+Cat index.html | grep "href=" | cut -d"/" -f3 | grep  "cisco\.com"
+Cat index.html | grep "href=" | cut -d"/" -f3 | grep  "cisco\.com" | cut -d'"' -f1 | sort -u
+
+
+grep name file
+Grep -o '[A-Za-z0-9_\.-]*\.*cisco.com' index.html | sort -u > cisco.txt
+grep --color 'word' file
+grep --color -R 'word' /path/to/dir
+grep --color -R "192.168.1.5" /etc/
+grep --color -R -h "192.168.1.5" /etc/
+grep --color -R -h "192.168.1.5" /etc/ 2>/dev/null
+
+FIND TEXT IN LOGS:
+grep sshd.\*Failed /var/log/auth.log
+cat /var/log/auth.log | grep "Failed password for"
+grep su.\*Successful /var/log/auth.log
+sudo cat /var/log/syslog | grep "iptables denied" | more
+
+
+
+
+Host www.cisco.com | grep "has address" | cut -d " " -f4
+
+nano cisco.sh
+chmod 755 cisco.sh
+#!/bin/bash
+
+for url in $(cat cisco.txt);do
+host $url |grep "has address" | cut -d" " -f4
+done
+
+OR:
+
+for url in $(grep -o '[A-Za-z0-9_\.-]*\.*cisco.com' index.html | sort -u); do host $url|grep "has address"|cut -d" " -f4; done
+
+
+
+sed 's/name1/name2/' file   -> to replace all instances of the word name1 with word name2
+To save sed output:
+sed -i 's/cisco/juniper/' file
