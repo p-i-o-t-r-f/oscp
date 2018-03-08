@@ -1,3 +1,10 @@
+THE BEST:
+for i in $(nmap -sP 10.11.1.1-8 | grep 10 | cut -d " " -f 5); do nmap -v --open -Pn -sTU -T4 --top-ports 1000 -A -sV --webxml -oA $i $i; done
+for i in $(nmap -sP 10.11.1.1-8 | grep 10 | cut -d " " -f 5); do nmap -v --open -Pn -p0- -A -sV --script="default or safe or discovery or http-*" --webxml -oA $i $i & done
+
+for i in $(nmap -sP 10.11.1.8 | grep 10 | cut -d " " -f 5); do nmap -v --open -Pn -p0- -A -sV --script="http- or ssl- or cps- or ftp- or  samba- or smb- or smtp-*" --webxml -oA $i $i & done
+
+
 NMAP
 np ping scan:
 nmap -sP 10.11.1.1-254
@@ -6,6 +13,12 @@ SYN SCAN
 nmap -sS 10.11.1.1-254
 
 nmap -PN -O -v 10.11.1.5     -> to check system uptime
+
+HTTP
+nmap --script "http-*"          -> load all http scripts!
+
+MYSQL
+nmap -p 3306 10.11.1.1-254 | grep -B3 open | grep Nmap | cut -d " " -f5
 
 
 UDP SCAN  -> unreliable because routers/firewalls may drop icmp packet and not send icmp destination unreachable
@@ -35,7 +48,7 @@ Nmap), and XML.
 Scan OS information and Traceroute   ->BIG FULL SCAN
 nmap -A 10.22.115.240
 nmap -A 10.11.14.3 -o full.txt
-
+nmap -A -iL wynik1.txt -o version_traceroute_wynik1.txt
 
 nmap -O -iL web_sweep_UP.txt    -> take input from the file and verify version of OS
 
