@@ -1,0 +1,10 @@
+tcpdump -r password_cracking_filtered.pcap
+tcpdump -n -r password_cracking_filtered.pcap | awk -F" " '{print $3}' | sort -u | head
+
+tcpdump -n src host 172.16.40.10 -r password_cracking_filtered.pcap
+tcpdump -n dst host 172.16.40.10 -r password_cracking_filtered.pcap
+tcpdump -n port 81 -r password_cracking_filtered.pcap
+tcpdump -nX -r password_cracking_filtered.pcap         -> HEX format
+
+
+tcpdump -A -n 'tcp[13] = 24' -r password_cracking_filtered.pcap                     ->to see only ACK and PSH flags packets
