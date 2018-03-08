@@ -1,0 +1,95 @@
+NMAP
+np ping scan:
+nmap -sP 10.11.1.1-254
+
+SYN SCAN
+nmap -sS 10.11.1.1-254
+
+nmap -PN -O -v 10.11.1.5     -> to check system uptime
+
+
+UDP SCAN  -> unreliable because routers/firewalls may drop icmp packet and not send icmp destination unreachable
+nc -unvv -w 1 -z 192.168.31.227 160-165
+
+for ip in $(seq 1 254); do nc -nv -u -z -w 1 10.11.1.$ip 160-162;done       ->to scan range of ip and udp
+
+
+
+Network sweeping
+nmap -sn 192.168..31.200-254
+
+nmap -sn 192.168..31.200-254 -oG  ping-sweep-nmap    -> to file ping-sweep-nmap
+
+nmap -sT --top-ports 20   192.168..31.200-254 -oG  ping-top-nmap  -> to scan top 20 services   -oG file result 
+
+
+PORT scanning
+nc -vv 192.168.20.10 25                   -single port
+
+/usr/share/nmap/scripts#
+
+SYN Scan
+nmap -sS 192.168.20.10-12 -oA booknmap                       -> -oA option tells Nmap to log our results in all formats: .nmap, .gnmap (greppable
+Nmap), and XML.
+
+Scan OS information and Traceroute   ->BIG FULL SCAN
+nmap -A 10.22.115.240
+nmap -A 10.11.14.3 -o full.txt
+
+
+nmap -O -iL web_sweep_UP.txt    -> take input from the file and verify version of OS
+
+Version Scan
+nmap -sV 192.168.20.10-12 -oA bookversionnmap
+
+UDP scan
+nmap -sU 192.168.20.10-12 -oA bookudp
+
+Scanning specific port
+nmap -sS -p 3232 192.168.20.10
+
+Version scanning specific port
+nmap -p 3232 -sV 192.168.20.10
+
+NMAP script scan
+nmap -sC 192.168.20.10-12
+
+nmap --script-help default
+
+nmap --script-help nfs-ls
+
+find SMB hosts:
+nmap -p 139,445 10.11.1.1-254
+
+nmap -p 139,445 10.11.1.1-254 -o smb_nmap
+cat smb_nmap | grep "Nmap scan report" | cut -d " " -f5 > smb_nmap_list
+
+
+Single NSE Script   - check vulnerabilities
+nmap --script=nfs-ls 192.168.20.11
+
+nmap -v -p 80 --script http-
+
+
+
+-cve2010-2861 192.168.31.210       
+
+nmap -v -p 80 --script all 192.168.31.210              -> scan all vulnerabilities !!!
+nmap -v -p 5800 --script all 10.22.115.240
+
+-------
+
+cat iptables-counters.sh
+chmod 755 …
+# reset all counters and iptables
+iptables -Z && iptables -F
+#measure incoming traffic into .
+iptables -I INPUT 1 -s 192.168.31.220 -j ACCEPT
+# measure outgoing traffic into ...
+iptables -I OUTPUT 1 -d 192.168.31.220 -j ACCEPT
+
+nmap 192.168.31.220    -> scan all popular ports                  
+then check
+iptables -vn -L   -> to check bytes sent it by nmap!!!!
+
+-----------------
