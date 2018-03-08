@@ -1,0 +1,62 @@
+
+
+nbtscan 10.22.115.240
+nbtscan 192.168.21.200-254 - >scan lab network
+
+smb service:
+rpcclient -U "" 10.22.115.240
+	Ø srvinfo    - to verify version of smb
+	Ø enumdomusers
+	Ø getdompwinfo
+
+	>srvinfo
+	
+	enum
+enumdomusers
+enumalsgroups domain
+enumalsgroups builtin
+lookupnames administrators
+lookupnames administrator
+
+ENUM4LINUX  -all infos about shares
+enum4linux -v 10.22.115.240
+
+
+enum4linux -U 10.11.1.136             -> list of usernames
+
+enum4linux -r 10.11.1.136             -> list of usernames  via RID Cycling 
+
+enum4linux -g 10.11.1.136              -> group membership
+enum4linux -a 10.11.1.136              -> all info!
+
+enum4linux -n  10.11.1.136     ->nbtstat info:
+
+enum4linux 10.11.1.136 - > Check if host is part of a domain or workgroup
+
+
+
+enum4linux -S 10.11.1.136        -> list of shares
+
+ls -l /usr/share/nmap/scripts/ | grep http
+
+SMB NSE 
+nmap -v -p 139, 445 --script=smb-os-discovery 10.11.1.227
+
+# ls -l /usr/share/nmap/scripts/| grep smb
+
+nmap 10.0.0.19 --script smb-os-discovery.nse
+
+
+nmap --script=dns-zone-transfer -p 53 ns2.megacorpone.com      ->DNS zone transfer
+
+nmap -p 139,445 --script smb-enum-users 10.22.115.240
+
+nmap -p 139,445 --script=smb-check-vulns --script-args=unsafe=1 10.22.115.240
+
+
+NETBIOS:
+nmap -v -p 139,445 -oG smb.txt 10.11.1.1-254
+nbtscan -r 10.11.1.0/24
+
+
+https://labs.portcullis.co.uk/tools/enum4linux/
