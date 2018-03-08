@@ -1,0 +1,31 @@
+theharvester -d cisco.com -b google >google.txt
+theharvester -d cisco.com -l 10 -b bing >bing.txt
+
+theharvester -d microsoft.com -l 500 -b google -h myresults.html
+        theharvester -d microsoft.com -b pgp
+        theharvester -d microsoft -l 200 -b linkedin
+        theharvester -d apple.com -b googleCSE -l 500 -s 300
+
+Passive:
+--------
+-google: google search engine  - www.google.com
+-googleCSE: google custom search engine
+-google-profiles: google search engine, specific search for Google profiles
+-bing: microsoft search engine  - www.bing.com
+-bingapi: microsoft search engine, through the API (you need to add your Key in
+          the discovery/bingsearch.py file)
+-dogpile: Dogpile search engine - www.dogpile.com
+-pgp: pgp key server - mit.edu
+-linkedin: google search engine, specific search for Linkedin users
+-vhost: Bing virtual hosts search
+-twitter: twitter accounts related to an specific domain (uses google search)
+-googleplus: users that works in target company (uses google search)
+-yahoo: Yahoo search engine
+-baidu: Baidu search engine
+-shodan: Shodan Computer search engine, will search for ports and banner of the
+         discovered hosts  (http://www.shodanhq.com/)
+
+theharvester -d patagonia.com -b linkedin >linkedin.txt
+
+theharvester -d patagonia.com -l 500 -b all
+
